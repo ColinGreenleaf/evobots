@@ -2,6 +2,7 @@ import pybullet as p
 import time
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
+import numpy as numpy
 
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -12,10 +13,12 @@ robotId = p.loadURDF("body.urdf")
 p.loadSDF("world.sdf")
 
 pyrosim.Prepare_To_Simulate(robotId)
-for i in range(1000):
+backLegSensorValues = numpy.zeros(100)
+for i in range(100):
     p.stepSimulation()
-    backLegTouch = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
+    backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
     time.sleep(1./1000.)
     print(i)
-
+numpy.save("data/backLegSensorValues.npy", backLegSensorValues)
 p.disconnect()
+
