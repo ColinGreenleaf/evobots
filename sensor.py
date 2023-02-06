@@ -1,12 +1,20 @@
 import numpy as numpy
 import pyrosim.pyrosim as pyrosim
+import constants as c
 
 
 class SENSOR:
     def __init__(self, linkName):
-        self.values = numpy.zeros(0)
+        self.values = numpy.zeros(c.loopAmt)
         self.linkName = linkName
-        self.values = numpy.zeros(0)
+
+    def Get_Value(self, t):
+        # set the tth value of self.values to the sensor value for the link
+        self.values[t] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)
+        if t == c.loopAmt - 1:
+            print(self.values)
+
+
 
 
 
