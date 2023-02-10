@@ -25,7 +25,7 @@ class SIMULATION:
             p.stepSimulation()
             self.robot.Sense(t)
             self.robot.Act(t)
-            time.sleep(1./1000.)
+            time.sleep(1./200.)
             print(t)
 
     def __del__(self):

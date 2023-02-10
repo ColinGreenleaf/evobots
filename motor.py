@@ -15,6 +15,9 @@ class MOTOR:
         self.amplitude = c.amplitude
         self.frequency = c.frequency
         self.phaseOffset = c.phaseOffset
+        if self.jointName == b"Torso_FrontLeg":
+            self.frequency = c.frequency * 2
+            self.amplitude = c.amplitude /2
         x = numpy.linspace(-pi, pi, c.loopAmt)
         self.motorValues = self.amplitude * numpy.sin(self.frequency * x + self.phaseOffset)
 
