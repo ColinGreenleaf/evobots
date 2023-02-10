@@ -1,5 +1,8 @@
+import pybullet
+
 
 class WORLD:
 
     def __int__(self):
-        pass
+        pybullet.loadSDF("world.sdf")
+        self.planeId = pybullet.loadURDF("plane.urdf")
