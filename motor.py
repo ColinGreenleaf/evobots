@@ -26,3 +26,6 @@ class MOTOR:
             targetPosition=self.motorValues[t],
             maxForce=c.motorForce)
 
+    def Save_Values(self):
+        numpy.save(self.jointName + "_motorValues", self.motorValues)
+

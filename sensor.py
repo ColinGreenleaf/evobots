@@ -14,6 +14,9 @@ class SENSOR:
         if t == c.loopAmt - 1:
             print(self.values)
 
+    def Save_Values(self):
+        numpy.save(self.linkName + "_sensorValues", self.values)
+
 
 
 
