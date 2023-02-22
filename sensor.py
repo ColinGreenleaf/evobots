@@ -11,8 +11,6 @@ class SENSOR:
     def Get_Value(self, t):
         # set the tth value of self.values to the sensor value for the link
         self.values[t] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)
-        if t == c.loopAmt - 1:
-            print(self.values)
 
     def Save_Values(self):
         numpy.save(self.linkName + "_sensorValues", self.values)
