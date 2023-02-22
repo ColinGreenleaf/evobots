@@ -26,7 +26,7 @@ class MOTOR:
             bodyIndex=robot.robotID,
             jointName=self.jointName,
             controlMode=p.POSITION_CONTROL,
-            targetPosition=self.motorValues[desiredAngle],
+            targetPosition=desiredAngle,
             maxForce=c.motorForce)
 
     def Save_Values(self):
