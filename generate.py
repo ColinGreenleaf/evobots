@@ -26,7 +26,28 @@ def Generate_Brain():
     pyrosim.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
     pyrosim.Send_Motor_Neuron(name=3, jointName="Torso_BackLeg")
     pyrosim.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
+
+    # BackLeg sensor to BackLeg motor
+    pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=3, weight=1.0)
+    pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=3, weight=0.4)
+
+    # FrontLeg sensor to FrontLeg motor
+    pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=4, weight=1.0)
+    pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=4, weight=0.4)
+
+    # Cross connections
+    # BackLeg sensor to FrontLeg motor
+    pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=4, weight=0.1)
+    # FrontLeg sensor to BackLeg motor
+    pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=3, weight=0.1)
+
+    # best values:
+    # 1.0, 0.4, 1.0, 0.4, 0.1, 0.1
+
+
+
     pyrosim.End()
+
 
 if __name__ == "__main__":
     Create_World()

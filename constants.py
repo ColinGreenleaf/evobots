@@ -1,6 +1,6 @@
 from math import pi
 
-loopAmt = 1000
+loopAmt = 3000
 motorForce = 50
 
 amplitude = pi/4
