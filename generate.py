@@ -34,25 +34,6 @@ def Generate_Brain():
         for j in range(3, 5):
             pyrosim.Send_Synapse(sourceNeuronName=i, targetNeuronName=j, weight=random.uniform(-1, 1))
 
-    # # BackLeg sensor to BackLeg motor
-    # pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=3, weight=1.0)
-    # pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=3, weight=0.4)
-    #
-    # # FrontLeg sensor to FrontLeg motor
-    # pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=4, weight=1.0)
-    # pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=4, weight=0.4)
-    #
-    # # Cross connections
-    # # BackLeg sensor to FrontLeg motor
-    # pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=4, weight=0.1)
-    # # FrontLeg sensor to BackLeg motor
-    # pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=3, weight=0.1)
-
-    # best values:
-    # 1.0, 0.4, 1.0, 0.4, 0.1, 0.1
-
-
-
     pyrosim.End()
 
 
