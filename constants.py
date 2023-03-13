@@ -13,4 +13,4 @@ cubeLength = 1
 cubeWidth = 1
 cubeHeight = 1
 
-numberOfGenerations = 2
+numberOfGenerations = 10

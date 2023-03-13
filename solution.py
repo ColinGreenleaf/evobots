@@ -10,9 +10,9 @@ class SOLUTION:
         self.weights = np.random.rand(3,2)
         self.weights = (self.weights * 2) - 1
 
-    def Evaluate(self):
+    def Evaluate(self, directOrGUI):
         self.Create_Brain()
-        os.system('python3 simulate.py')
+        os.system('python3 simulate.py ' + directOrGUI)
         # read in the fitness from the fitness.txt file
         f = open("fitness.txt", "r")
         self.fitness = float(f.read())
