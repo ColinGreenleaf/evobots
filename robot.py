@@ -12,6 +12,7 @@ import numpy as numpy
 
 class ROBOT:
     def __init__(self, solutionID):
+        self.solutionID = solutionID
         self.motors = {}
         self.sensors = {}
         self.robotID = p.loadURDF("body.urdf")
@@ -19,7 +20,7 @@ class ROBOT:
         self.Prepare_To_Act()
         self.Prepare_To_Sense()
         self.nn = NEURAL_NETWORK("brain"+solutionID+".nndf")
-        os.system("rm brain"+solutionID+".nndf")
+        # os.system("rm brain"+solutionID+".nndf")
 
     def Prepare_To_Sense(self):
         for linkName in pyrosim.linkNamesToIndices:
@@ -51,7 +52,8 @@ class ROBOT:
         xCoordinateOfLinkZero = positionOfLinkZero[0]
         print(xCoordinateOfLinkZero)
         #write xCoordinateOfLinkZero to a file called fitness.txt
-        f = open("fitness.txt", "w")
+        f = open("tmp" + str(self.solutionID) + ".txt", "w")
         f.write(str(xCoordinateOfLinkZero))
+        os.system("mv tmp" + str(self.solutionID) + ".txt fitness" + str(self.solutionID) + ".txt")
         exit()
 

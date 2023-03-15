@@ -1,3 +1,4 @@
+import time
 import numpy as np
 import pyrosim.pyrosim as pyrosim
 import constants as c
@@ -12,11 +13,16 @@ class SOLUTION:
         self.weights = (self.weights * 2) - 1
 
     def Evaluate(self, directOrGUI):
+        print("creating brain")
         self.Create_Brain()
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &")
+        fitnessFileName = "fitness" + str(self.myID) + ".txt"
+        while not os.path.exists(fitnessFileName):
+            time.sleep(0.01)
         # read in the fitness from the fitness.txt file
-        f = open("fitness.txt", "r")
+        f = open(fitnessFileName, "r")
         self.fitness = float(f.read())
+        print("fitness = ", self.fitness)
         f.close()
 
     def Create_World(self):
