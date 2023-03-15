@@ -5,14 +5,15 @@ import os
 
 class SOLUTION:
 
-    def __init__(self):
+    def __init__(self, id):
+        self.myID = id
         # make a numpy 3 row x 2 column matrix
         self.weights = np.random.rand(3,2)
         self.weights = (self.weights * 2) - 1
 
     def Evaluate(self, directOrGUI):
         self.Create_Brain()
-        os.system('python3 simulate.py ' + directOrGUI)
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &")
         # read in the fitness from the fitness.txt file
         f = open("fitness.txt", "r")
         self.fitness = float(f.read())
@@ -35,7 +36,7 @@ class SOLUTION:
         pyrosim.End()
 
     def Create_Brain(self):
-        pyrosim.Start_NeuralNetwork("brain.nndf")
+        pyrosim.Start_NeuralNetwork("brain"+str(self.myID)+".nndf")
         pyrosim.Send_Sensor_Neuron(name=0, linkName="Torso")
         pyrosim.Send_Sensor_Neuron(name=1, linkName="BackLeg")
         pyrosim.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
@@ -55,3 +56,6 @@ class SOLUTION:
         randomRow = np.random.randint(0,3)
         randomColumn = np.random.randint(0,2)
         self.weights[randomRow][randomColumn] = np.random.random() * 2 - 1
+
+    def Set_ID(self, id):
+        self.myID = id

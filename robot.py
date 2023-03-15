@@ -1,3 +1,5 @@
+import os
+
 import pybullet as p
 
 import pyrosim.pyrosim as pyrosim
@@ -9,14 +11,15 @@ import numpy as numpy
 
 
 class ROBOT:
-    def __init__(self):
+    def __init__(self, solutionID):
         self.motors = {}
         self.sensors = {}
         self.robotID = p.loadURDF("body.urdf")
         pyrosim.Prepare_To_Simulate(self.robotID)
         self.Prepare_To_Act()
         self.Prepare_To_Sense()
-        self.nn = NEURAL_NETWORK("brain.nndf")
+        self.nn = NEURAL_NETWORK("brain"+solutionID+".nndf")
+        os.system("rm brain"+solutionID+".nndf")
 
     def Prepare_To_Sense(self):
         for linkName in pyrosim.linkNamesToIndices:
