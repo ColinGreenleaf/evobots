@@ -35,9 +35,11 @@ class SOLUTION:
         # read in the fitness from the fitness.txt file
         f = open(fitnessFileName, "r")
         self.fitness = float(f.read())
-        print("fitness = ", self.fitness)
+        # print("fitness = ", self.fitness)
         f.close()
-        os.system("rm fitness"+str(self.myID)+".txt")
+        if os.path.exists(fitnessFileName):
+            os.system("rm fitness"+str(self.myID)+".txt")
+
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
