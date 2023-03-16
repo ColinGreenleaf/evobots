@@ -13,7 +13,10 @@ class PARALLEL_HILL_CLIMBER:
     def Evolve(self):
         pass
         for i in range(0, c.populationSize):
-            self.parents[i].Evaluate("GUI")
+            self.parents[i].Start_Simulation("GUI")
+
+        for i in range(0, c.populationSize):
+            self.parents[i].Wait_For_Simulation_To_End()
         # for currentGeneration in range(c.numberOfGenerations):
         #     self.Evolve_For_One_Generation()
 

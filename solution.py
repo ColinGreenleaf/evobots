@@ -13,7 +13,6 @@ class SOLUTION:
         self.weights = (self.weights * 2) - 1
 
     def Evaluate(self, directOrGUI):
-        print("creating brain")
         self.Create_Brain()
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &")
         fitnessFileName = "fitness" + str(self.myID) + ".txt"
@@ -24,6 +23,21 @@ class SOLUTION:
         self.fitness = float(f.read())
         print("fitness = ", self.fitness)
         f.close()
+
+    def Start_Simulation(self, directOrGUI):
+        self.Create_Brain()
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &")
+
+    def Wait_For_Simulation_To_End(self):
+        fitnessFileName = "fitness" + str(self.myID) + ".txt"
+        while not os.path.exists(fitnessFileName):
+            time.sleep(0.01)
+        # read in the fitness from the fitness.txt file
+        f = open(fitnessFileName, "r")
+        self.fitness = float(f.read())
+        print("fitness = ", self.fitness)
+        f.close()
+        os.system("rm fitness"+str(self.myID)+".txt")
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
