@@ -9,7 +9,7 @@ phaseOffset = 0
 
 modToFit = pi/(loopAmt/2)
 
-populationSize = 2
+populationSize = 10
 
 cubeLength = 1
 cubeWidth = 1

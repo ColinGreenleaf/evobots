@@ -16,21 +16,17 @@ class PARALLEL_HILL_CLIMBER:
             self.nextAvailableID += 1
     def Evolve(self):
         pass
-        for i in range(0, c.populationSize):
-            self.parents[i].Start_Simulation("DIRECT")
-
-        for i in range(0, c.populationSize):
-            self.parents[i].Wait_For_Simulation_To_End()
+        self.Evaluate(self.parents)
 
         for currentGeneration in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
-        # self.Mutate()
-        # self.child.Evaluate("DIRECT")
-        # self.Print()
-        # self.Select()
+        self.Mutate()
+        self.Evaluate(self.children)
+        self.Print()
+        self.Select()
 
     def Spawn(self):
         self.children = {}
@@ -40,17 +36,33 @@ class PARALLEL_HILL_CLIMBER:
             self.nextAvailableID += 1
 
     def Mutate(self):
-        self.child.Mutate()
+        for each in self.children:
+            self.children[each].Mutate()
 
     def Select(self):
-        if self.child.fitness < self.parent.fitness:
-            self.parent = self.child
-            print("child is better than parent")
-
+        for i in range(0, c.populationSize):
+            if self.children[i].fitness < self.parents[i].fitness:
+                self.parents[i] = self.children[i]
+                # print("child is better than parent")
     def Print(self):
+        print("")
         # print both fitnesses on one line rounded to 3 decimal places
-        print("parent fitness: ", round(self.parent.fitness, 3), "child fitness: ", round(self.child.fitness, 3))
+        for i in range(0, c.populationSize):
+            print("parent fitness: ", round(self.parents[i].fitness, 3), "child fitness: ", round(self.children[i].fitness, 3))
 
+        print("")
     def Show_Best(self):
-        pass
-        # self.parent.Evaluate("GUI")
+        #find the parent with the best fitness
+        bestParent = self.parents[0]
+        for i in range(0, c.populationSize):
+            if self.parents[i].fitness < bestParent.fitness:
+                bestParent = self.parents[i]
+        bestParent.Evaluate("GUI")
+
+    def Evaluate(self, solutions):
+        for i in range(0, c.populationSize):
+            solutions[i].Start_Simulation("DIRECT")
+
+        for i in range(0, c.populationSize):
+            solutions[i].Wait_For_Simulation_To_End()
+

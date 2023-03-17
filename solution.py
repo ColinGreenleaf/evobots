@@ -34,7 +34,10 @@ class SOLUTION:
             time.sleep(0.01)
         # read in the fitness from the fitness.txt file
         f = open(fitnessFileName, "r")
-        self.fitness = float(f.read())
+        tempfitness = f.read()
+        if tempfitness == '':
+            tempfitness = 1
+        self.fitness = float(tempfitness)
         # print("fitness = ", self.fitness)
         f.close()
         if os.path.exists(fitnessFileName):
