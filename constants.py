@@ -17,7 +17,7 @@ cubeHeight = 1
 
 numberOfGenerations = 1
 
-sensorNeurons = 3
-motorNeurons = 2
+sensorNeurons = 9
+motorNeurons = 8
 
 sleepTime = 1./80.
