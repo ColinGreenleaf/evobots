@@ -9,12 +9,15 @@ phaseOffset = 0
 
 modToFit = pi/(loopAmt/2)
 
-populationSize = 10
+populationSize = 1
 
 cubeLength = 1
 cubeWidth = 1
 cubeHeight = 1
 
-numberOfGenerations = 10
+numberOfGenerations = 1
+
+sensorNeurons = 3
+motorNeurons = 2
 
 sleepTime = 1./80.

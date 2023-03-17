@@ -1,5 +1,9 @@
 import os
 from parallelHillClimber import PARALLEL_HILL_CLIMBER
+from solution import SOLUTION
+
+solution = SOLUTION(0)
+solution.Create_Body()
 
 
 phc = PARALLEL_HILL_CLIMBER()

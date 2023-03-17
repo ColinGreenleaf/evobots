@@ -51,13 +51,13 @@ class SOLUTION:
 
     def Create_Body(self):
         pyrosim.Start_URDF("body.urdf")
-        pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1.5], size=[c.cubeLength, c.cubeWidth, c.cubeHeight])
+        pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1], size=[c.cubeLength, c.cubeWidth, c.cubeHeight])
         pyrosim.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg", type="revolute",
-                           position=[0.5, 0, 1])
-        pyrosim.Send_Cube(name="FrontLeg", pos=[0.5, 0, -0.5], size=[c.cubeLength, c.cubeWidth, c.cubeHeight])
+                           position=[0, 0.5, 1])
+        pyrosim.Send_Cube(name="FrontLeg", pos=[0, 0.5, 0], size=[0.2, c.cubeWidth, 0.2])
         pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute",
-                           position=[-0.5, 0, 1])
-        pyrosim.Send_Cube(name="BackLeg", pos=[-0.5, 0, -0.5], size=[c.cubeLength, c.cubeWidth, c.cubeHeight])
+                           position=[0, -0.5, 1])
+        pyrosim.Send_Cube(name="BackLeg", pos=[0, -0.5, 0], size=[0.2, c.cubeWidth, 0.2])
         pyrosim.End()
 
     def Create_Brain(self):
@@ -69,10 +69,10 @@ class SOLUTION:
         pyrosim.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
 
         # for loop that iterates through 0, 1, 2
-        for currentRow in range(3):
+        for currentRow in range(c.sensorNeurons):
             # for loop that iterates through 3, 4
-            for currentColumn in range(2):
-                pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+3, weight=self.weights[currentRow][currentColumn])
+            for currentColumn in range(c.motorNeurons):
+                pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+c.sensorNeurons, weight=self.weights[currentRow][currentColumn])
 
         pyrosim.End()
 
