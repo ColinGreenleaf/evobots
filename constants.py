@@ -9,13 +9,13 @@ phaseOffset = 0
 
 modToFit = pi/(loopAmt/2)
 
-populationSize = 10
+populationSize = 50
 
 cubeLength = 1
 cubeWidth = 1
 cubeHeight = 1
 
-numberOfGenerations = 10
+numberOfGenerations = 50
 
 motorJointRange = 0.25
 
