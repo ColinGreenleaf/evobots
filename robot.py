@@ -44,7 +44,7 @@ class ROBOT:
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName) * c.motorJointRange
-                self.motors[jointName.encode("utf-8")].Set_Value(self, desiredAngle)
+                self.motors[jointName].Set_Value(self, desiredAngle)
 
     def Get_Fitness(self):
         stateOfLinkZero = p.getLinkState(self.robotID, 0)

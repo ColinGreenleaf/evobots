@@ -5,7 +5,6 @@ from solution import SOLUTION
 solution = SOLUTION(0)
 solution.Create_Body()
 
-
 phc = PARALLEL_HILL_CLIMBER()
 phc.Evolve()
 phc.Show_Best()
