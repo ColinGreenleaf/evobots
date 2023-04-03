@@ -55,7 +55,6 @@ class PARALLEL_HILL_CLIMBER:
         for i in range(0, c.populationSize):
             if self.parents[i].fitness < bestParent.fitness:
                 bestParent = self.parents[i]
-        #save the best parent's brain to a file called bestBrain.nndf
         bestParent.Evaluate("GUI")
 
 

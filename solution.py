@@ -8,9 +8,12 @@ class SOLUTION:
 
     def __init__(self, id):
         self.myID = id
-        # make a numpy 3 row x 2 column matrix
         self.weights = np.random.rand(c.sensorNeurons, c.motorNeurons)
-        self.weights = (self.weights * 2) - 1
+        #make matrices of random weights for the neural network
+        self.sensorToHiddenWeights = np.random.rand(c.sensorNeurons, c.hiddenNeurons)
+        self.hiddenToMotorWeights = np.random.rand(c.hiddenNeurons, c.motorNeurons)
+        self.sensorToHiddenWeights = (self.weights * 2) - 1
+        self.hiddenToMotorWeights = (self.weights * 2) - 1
 
     def Evaluate(self, directOrGUI):
         self.Create_Brain()
@@ -26,7 +29,7 @@ class SOLUTION:
 
     def Start_Simulation(self, directOrGUI):
         self.Create_Brain()
-        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &")
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " 2&>1 &")
 
     def Wait_For_Simulation_To_End(self):
         fitnessFileName = "fitness" + str(self.myID) + ".txt"
@@ -94,7 +97,7 @@ class SOLUTION:
         nameval += 1
         pyrosim.Send_Sensor_Neuron(name=nameval, linkName="LeftLeg")
         nameval += 1
-        pyrosim.Send_Sensor_Neuron(name=nameval, linkName="LeftLeg")
+        pyrosim.Send_Sensor_Neuron(name=nameval, linkName="RightLeg")
         nameval += 1
         pyrosim.Send_Sensor_Neuron(name=nameval, linkName="LowerFrontLeg")
         nameval += 1
@@ -104,6 +107,10 @@ class SOLUTION:
         nameval += 1
         pyrosim.Send_Sensor_Neuron(name=nameval, linkName="LowerRightLeg")
         nameval += 1
+
+        for i in range(0, c.hiddenNeurons):
+            pyrosim.Send_Hidden_Neuron(name=nameval)
+            nameval += 1
 
         pyrosim.Send_Motor_Neuron(name=nameval, jointName="Torso_BackLeg")
         nameval += 1
@@ -125,17 +132,28 @@ class SOLUTION:
 
         # for loop that iterates through sensor neurons
         for currentRow in range(c.sensorNeurons):
+            # for loop that iterates through hidden neurons
+            for currentColumn in range(c.hiddenNeurons):
+                pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+c.sensorNeurons, weight=self.sensorToHiddenWeights[currentRow][currentColumn])
+
+        # for loop that iterates through hidden neurons
+        for currentRow in range(c.hiddenNeurons):
             # for loop that iterates through motor neurons
             for currentColumn in range(c.motorNeurons):
-                pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+c.sensorNeurons, weight=self.weights[currentRow][currentColumn])
+                pyrosim.Send_Synapse(sourceNeuronName=currentRow+c.sensorNeurons, targetNeuronName=currentColumn+c.hiddenNeurons+c.sensorNeurons, weight=self.hiddenToMotorWeights[currentRow][currentColumn])
 
         pyrosim.End()
+        exit()
 
     def Mutate(self):
         # choose a random row from 0 to 2 (inclusive) and a random column from 0 to 1 (inclusive)
-        randomRow = np.random.randint(0,3)
-        randomColumn = np.random.randint(0,2)
-        self.weights[randomRow][randomColumn] = np.random.random() * 2 - 1
+        randomRow = np.random.randint(0, c.sensorNeurons)
+        randomColumn = np.random.randint(0, c.hiddenNeurons)
+        self.sensorToHiddenWeights[randomRow][randomColumn] = np.random.random() * 2 - 1
+
+        randomRow = np.random.randint(0, c.hiddenNeurons)
+        randomColumn = np.random.randint(0, c.motorNeurons)
+        self.hiddenToMotorWeights[randomRow][randomColumn] = np.random.random() * 2 - 1
 
     def Set_ID(self, id):
         self.myID = id
