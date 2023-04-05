@@ -21,6 +21,6 @@ motorJointRange = 0.25
 
 sensorNeurons = 9
 motorNeurons = 8
-hiddenNeurons = 1
+hiddenNeurons = 3
 
 sleepTime = 1./80.

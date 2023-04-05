@@ -19,8 +19,11 @@ class ROBOT:
         pyrosim.Prepare_To_Simulate(self.robotID)
         self.Prepare_To_Act()
         self.Prepare_To_Sense()
-        self.nn = NEURAL_NETWORK("brain"+solutionID+".nndf")
-        os.system("rm brain"+solutionID+".nndf")
+        if solutionID != "-1":
+            self.nn = NEURAL_NETWORK("brain"+solutionID+".nndf")
+        else:
+            self.nn = NEURAL_NETWORK("best/brain.nndf")
+        # os.system("rm brain"+solutionID+".nndf")
 
     def Prepare_To_Sense(self):
         for linkName in pyrosim.linkNamesToIndices:

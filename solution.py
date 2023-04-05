@@ -1,3 +1,4 @@
+import shutil
 import time
 import numpy as np
 import pyrosim.pyrosim as pyrosim
@@ -143,7 +144,6 @@ class SOLUTION:
                 pyrosim.Send_Synapse(sourceNeuronName=currentRow+c.sensorNeurons, targetNeuronName=currentColumn+c.hiddenNeurons+c.sensorNeurons, weight=self.hiddenToMotorWeights[currentRow][currentColumn])
 
         pyrosim.End()
-        exit()
 
     def Mutate(self):
         # choose a random row from 0 to 2 (inclusive) and a random column from 0 to 1 (inclusive)
@@ -157,3 +157,6 @@ class SOLUTION:
 
     def Set_ID(self, id):
         self.myID = id
+
+
+

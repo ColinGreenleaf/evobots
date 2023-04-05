@@ -55,6 +55,14 @@ class PARALLEL_HILL_CLIMBER:
         for i in range(0, c.populationSize):
             if self.parents[i].fitness < bestParent.fitness:
                 bestParent = self.parents[i]
+
+        # clear the best directory
+        os.system("rm best/*")
+        # copy the best brain to the best directory
+        os.system("cp brain" + str(bestParent.myID) + ".nndf best/brain.nndf")
+        # remove all brains except the best one
+        os.system("rm brain*.nndf")
+
         bestParent.Evaluate("GUI")
 
 
