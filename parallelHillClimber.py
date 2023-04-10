@@ -49,21 +49,21 @@ class PARALLEL_HILL_CLIMBER:
             print("parent fitness: ", round(self.parents[i].fitness, 3), "child fitness: ", round(self.children[i].fitness, 3))
 
         print("")
-    def Show_Best(self):
+    def Show_Best(self, eval):
         #find the parent with the best fitness
         bestParent = self.parents[0]
         for i in range(0, c.populationSize):
             if self.parents[i].fitness < bestParent.fitness:
                 bestParent = self.parents[i]
 
-        # clear the best directory
-        os.system("rm best/*")
-        # copy the best brain to the best directory
-        os.system("cp brain" + str(bestParent.myID) + ".nndf best/brain.nndf")
-        # remove all brains except the best one
+
+        if os.path.exists("brain" + str(bestParent.myID) + ".nndf"):
+            os.system("cp brain" + str(bestParent.myID) + ".nndf best/brain.nndf")
+        # remove all brains
         os.system("rm brain*.nndf")
 
-        bestParent.Evaluate("GUI")
+        if eval == True:
+            bestParent.Evaluate("GUI")
 
 
     def Evaluate(self, solutions):
@@ -72,4 +72,6 @@ class PARALLEL_HILL_CLIMBER:
 
         for i in range(0, c.populationSize):
             solutions[i].Wait_For_Simulation_To_End()
+
+        self.Show_Best(False)
 

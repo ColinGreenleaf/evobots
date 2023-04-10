@@ -7,7 +7,7 @@ solution.Create_Body()
 
 phc = PARALLEL_HILL_CLIMBER()
 phc.Evolve()
-phc.Show_Best()
+phc.Show_Best(True)
 
 #remove any brain or fitness files
 os.system("rm brain*.nndf")

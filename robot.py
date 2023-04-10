@@ -53,6 +53,7 @@ class ROBOT:
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotID)
         basePosition = basePositionAndOrientation[0]
         xPosition = basePosition[0]
+        yPosition = basePosition[1]
         # print(xCoordinateOfLinkZero)
         #write xCoordinateOfLinkZero to a file called fitness.txt
         f = open("tmp" + str(self.solutionID) + ".txt", "w")
