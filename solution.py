@@ -148,14 +148,15 @@ class SOLUTION:
         pyrosim.End()
 
     def Mutate(self):
-        # choose a random row from 0 to 2 (inclusive) and a random column from 0 to 1 (inclusive)
-        randomRow = np.random.randint(0, c.sensorNeurons)
-        randomColumn = np.random.randint(0, c.hiddenNeurons)
-        self.sensorToHiddenWeights[randomRow][randomColumn] = np.random.random() * 2 - 1
+        for i in range(0, 3):
+            # choose a random row from 0 to 2 (inclusive) and a random column from 0 to 1 (inclusive)
+            randomRow = np.random.randint(0, c.sensorNeurons)
+            randomColumn = np.random.randint(0, c.hiddenNeurons)
+            self.sensorToHiddenWeights[randomRow][randomColumn] = np.random.random() * 2 - 1
 
-        randomRow = np.random.randint(0, c.hiddenNeurons)
-        randomColumn = np.random.randint(0, c.motorNeurons)
-        self.hiddenToMotorWeights[randomRow][randomColumn] = np.random.random() * 2 - 1
+            randomRow = np.random.randint(0, c.hiddenNeurons)
+            randomColumn = np.random.randint(0, c.motorNeurons)
+            self.hiddenToMotorWeights[randomRow][randomColumn] = np.random.random() * 2 - 1
 
     def Set_ID(self, id):
         self.myID = id
