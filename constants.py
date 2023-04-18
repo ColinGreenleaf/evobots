@@ -1,7 +1,7 @@
 from math import pi
 
 loopAmt = 1000
-motorForce = 50
+motorForce = 150
 
 amplitude = pi/4
 frequency = 10
@@ -9,8 +9,8 @@ phaseOffset = 0
 
 modToFit = pi/(loopAmt/2)
 
-populationSize = 1
-numberOfGenerations = 1
+populationSize = 10
+numberOfGenerations = 10
 
 cubeLength = 1
 cubeWidth = 1
