@@ -81,5 +81,5 @@ class PARALLEL_HILL_CLIMBER:
         self.Show_Best(False)
 
     def saveData(self):
-        np.save("data.npy", self.data)
+        np.save("data8legs.npy", self.data)
 
