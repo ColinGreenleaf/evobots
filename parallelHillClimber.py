@@ -1,6 +1,7 @@
 import os
 
 from solution import SOLUTION
+import numpy as np
 import constants as c
 import copy
 class PARALLEL_HILL_CLIMBER:
@@ -8,6 +9,8 @@ class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         os.system("rm brain*.nndf")
         os.system("rm fitness*.txt")
+        # self.data is a numpy matrix with c.populationSize rows and c.numberOfGenerations columns
+        self.data = np.zeros((c.populationSize, c.numberOfGenerations))
         self.parents = {}
         self.nextAvailableID = 0
         # self.parent = SOLUTION()
@@ -15,14 +18,16 @@ class PARALLEL_HILL_CLIMBER:
             self.parents[i] = SOLUTION(self.nextAvailableID)
             self.nextAvailableID += 1
     def Evolve(self):
-        self.Evaluate(self.parents)
+        self.Evaluate(self.parents, currentGeneration=0)
+        currentGeneration = 0
         for currentGeneration in range(c.numberOfGenerations):
-            self.Evolve_For_One_Generation()
+            self.Evolve_For_One_Generation(currentGeneration)
+            currentGeneration += 1
 
-    def Evolve_For_One_Generation(self):
+    def Evolve_For_One_Generation(self, currgen):
         self.Spawn()
         self.Mutate()
-        self.Evaluate(self.children)
+        self.Evaluate(self.children, currgen)
         self.Print()
         self.Select()
 
@@ -66,12 +71,15 @@ class PARALLEL_HILL_CLIMBER:
             bestParent.Evaluate("GUI")
 
 
-    def Evaluate(self, solutions):
+    def Evaluate(self, solutions, currentGeneration):
         for i in range(0, c.populationSize):
             solutions[i].Start_Simulation("DIRECT")
 
         for i in range(0, c.populationSize):
-            solutions[i].Wait_For_Simulation_To_End()
+            self.data[i, currentGeneration] = solutions[i].Wait_For_Simulation_To_End()
 
         self.Show_Best(False)
+
+    def saveData(self):
+        np.save("data6legs.npy", self.data)
 

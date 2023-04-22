@@ -46,6 +46,7 @@ class SOLUTION:
         f.close()
         if os.path.exists(fitnessFileName):
             os.system("rm fitness"+str(self.myID)+".txt")
+        return self.fitness
 
 
     def Create_World(self):
